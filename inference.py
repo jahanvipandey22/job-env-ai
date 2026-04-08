@@ -5,14 +5,12 @@ app = FastAPI()
 
 env = JobEnv()
 
-# ✅ REQUIRED: RESET endpoint
-@app.post("/reset")
+@app.post("/openenv/reset")
 def reset():
     state = env.reset()
     return {"state": state}
 
-# ✅ REQUIRED: STEP endpoint
-@app.post("/step")
+@app.post("/openenv/step")
 def step(action: dict):
     act = action.get("action", "learn_skill")
 
