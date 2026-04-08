@@ -1,0 +1,8 @@
+name: Smart Job Optimization Environment
+
+actions:
+  - learn_skill
+  - improve_resume
+  - apply
+
+reward_range: [-0.2, 1.0]
