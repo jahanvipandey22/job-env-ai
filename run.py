@@ -15,7 +15,7 @@ total_reward = 0
 
 for step in range(10):
 
-    # 🔥 SMART DECISION LOGIC (not random anymore)
+    #  SMART DECISION LOGIC 
 
     if role.lower() == "backend":
         required_skill = "python"

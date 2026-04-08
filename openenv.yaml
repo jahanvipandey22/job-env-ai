@@ -1,6 +1,6 @@
 name: Smart Job Optimization Environment
 
-entrypoint: uvicorn inference:app --host 0.0.0.0 --port 7860
+entrypoint: uvicorn inference:app --host 0.0.0.0 --port 8000
 
 actions:
   - learn_skill

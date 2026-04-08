@@ -1,24 +1,12 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-from environment import JobEnv
+from fastapi import FastAPI, Request
 
 app = FastAPI()
 
-env = JobEnv()
+@app.get("/")
+def home():
+    return {"message": "API is running"}
 
-class StepRequest(BaseModel):
-    action: str
-
-@app.post("/reset")
-async def reset():
-    state = env.reset()
-    return {"state": state}
-
-@app.post("/step")
-async def step(req: StepRequest):
-    state, reward, done = env.step(req.action)
-    return {
-        "state": state,
-        "reward": reward,
-        "done": done
-    }
+@app.post("/")
+async def infer(request: Request):
+    data = await request.json()
+    return {"status": "ok"}
