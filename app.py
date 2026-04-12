@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Body
 from environment import JobEnv
-import uvicorn
+import gradio as gr
 
 app = FastAPI()
 env = JobEnv()
@@ -11,12 +11,14 @@ def home():
     return {"message": "API running"}
 
 
+# ✅ REQUIRED ENDPOINT
 @app.post("/openenv/reset")
 def reset():
     state = env.reset()
     return {"state": state}
 
 
+# ✅ REQUIRED ENDPOINT
 @app.post("/openenv/step")
 def step(action: dict = Body(...)):
     act = action.get("action", "learn_skill")
@@ -29,15 +31,13 @@ def step(action: dict = Body(...)):
     }
 
 
-# 🔥 VERY IMPORTANT (keeps server running)
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=7860)
-    import gradio as gr
-
+# ✅ GRADIO (keeps space alive)
 def dummy():
     return "API running"
 
 iface = gr.Interface(fn=dummy, inputs=[], outputs="text")
 
+
+# 🔥 SINGLE ENTRY POINT ONLY
 if __name__ == "__main__":
-    iface.launch()
+    iface.launch(server_name="0.0.0.0", server_port=7860)
