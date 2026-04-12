@@ -33,3 +33,7 @@ iface = gr.Interface(
 
 # 🔥 FIXED HERE
 app = gr.mount_gradio_app(app, iface, path="/ui")
+# 🔥 THIS FIXES RUNTIME ERROR
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=7860)
