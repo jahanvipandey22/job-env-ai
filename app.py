@@ -1,8 +1,8 @@
 import gradio as gr
-from run import run_simulation   # 👈 import your function
+from run import run_simulation
 
 def run_env(role):
-    return run_simulation(role)  # 👈 direct call (NO subprocess)
+    return run_simulation(role)
 
 iface = gr.Interface(
     fn=run_env,
@@ -12,4 +12,5 @@ iface = gr.Interface(
     description="Enter role → AI simulates job selection"
 )
 
+# 🔥 THIS IS THE MOST IMPORTANT LINE
 iface.launch(server_name="0.0.0.0", server_port=7860)
