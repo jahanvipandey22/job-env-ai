@@ -1,48 +1,53 @@
 from environment import JobEnv
 import sys
 
-# Get role input
-role = sys.argv[1] if len(sys.argv) > 1 else "backend"
+def run_simulation(role):
+    output = ""
 
-print(f"Selected Role: {role}")
+    output += f"Selected Role: {role}\n\n"
 
-env = JobEnv()
-state = env.reset()
+    env = JobEnv()
+    state = env.reset()
 
-actions = ["learn_skill", "improve_resume", "apply"]
+    total_reward = 0
 
-total_reward = 0
+    for step in range(10):
 
-for step in range(10):
+        # SMART DECISION LOGIC
+        if role.lower() == "backend":
+            required_skill = "python"
+        elif role.lower() == "frontend":
+            required_skill = "javascript"
+        else:
+            required_skill = "python"
 
-    #  SMART DECISION LOGIC 
+        # Decision making
+        if required_skill not in state["skills"]:
+            action = "learn_skill"
+        elif state["resume_score"] < 0.7:
+            action = "improve_resume"
+        else:
+            action = "apply"
 
-    if role.lower() == "backend":
-        required_skill = "python"
-    elif role.lower() == "frontend":
-        required_skill = "javascript"
-    else:
-        required_skill = "python"
+        output += f"\nStep {step+1} → Action: {action}\n"
 
-    # Decision making
-    if required_skill not in state["skills"]:
-        action = "learn_skill"
-    elif state["resume_score"] < 0.7:
-        action = "improve_resume"
-    else:
-        action = "apply"
+        state, reward, done = env.step(action)
 
-    print(f"\nStep {step+1} → Action: {action}")
+        total_reward += reward
 
-    state, reward, done = env.step(action)
+        output += f"State: {state}\n"
+        output += f"Reward: {reward}\n"
 
-    total_reward += reward
+        if done:
+            output += "🎉 SUCCESS: You got the job!\n"
+            break
 
-    print("State:", state)
-    print("Reward:", reward)
+    output += f"\nFinal Reward: {total_reward}\n"
 
-    if done:
-        print("🎉 SUCCESS: You got the job!")
-        break
+    return output
 
-print("\nFinal Reward:", total_reward)
+
+# This part keeps CLI working (for your local testing)
+if __name__ == "__main__":
+    role = sys.argv[1] if len(sys.argv) > 1 else "backend"
+    print(run_simulation(role))s
