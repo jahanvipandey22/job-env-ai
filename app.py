@@ -10,7 +10,7 @@ def home():
     return {"message": "API running"}
 
 
-# ✅ STRICT POST ONLY
+# ✅ MUST be POST (VERY IMPORTANT)
 @app.post("/openenv/reset")
 def reset():
     state = env.reset()
@@ -19,7 +19,7 @@ def reset():
     }
 
 
-# ✅ SAFE + FLEXIBLE INPUT HANDLING
+# ✅ Step endpoint
 @app.post("/openenv/step")
 def step(action: dict = Body(...)):
     act = action.get("action", "learn_skill")
