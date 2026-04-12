@@ -8,11 +8,11 @@ app = FastAPI()
 env = JobEnv()
 
 # ✅ REQUIRED API ROUTES
-@app.post("/openenv/reset")
+@app.api_route("/openenv/reset", methods=["GET", "POST"])
 def reset():
     return env.reset()
 
-@app.post("/openenv/step")
+@app.api_route("/openenv/step", methods=["POST"])
 def step(action: dict = Body(...)):
     act = action.get("action", "learn_skill")
     state, reward, done = env.step(act)
