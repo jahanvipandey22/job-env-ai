@@ -1,11 +1,7 @@
 ---
-title: Job Env App
-emoji: 🚀
-colorFrom: blue
-colorTo: green
+title: Job Env Final
 sdk: gradio
 app_file: app.py
-pinned: false
 ---
 
 # Smart Job Environment
